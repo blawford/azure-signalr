@@ -88,7 +88,7 @@ You can create an instance of `IServiceHubContext` to publish messages or manage
 ``` C#
 try
 {
-    var hubcontext = await serviceManager.CreateHubContextAsync(hubName);
+    var hubContext = await serviceManager.CreateHubContextAsync("hubName");
 
     // Broadcast
     hubContext.Clients.All.SendAsync(callbackName, obj1, obj2, ...);
