@@ -86,24 +86,25 @@ The sample on how to use Management SDK to redirect SignalR clients to Azure Sig
 You can create an instance of `IServiceHubContext` to publish messages or manage group membership. The sample on how to use Management SDK to publish messages to SignalR clients can be found [here](https://github.com/aspnet/AzureSignalR-samples/tree/master/samples/Management).
 
 ``` C#
+var hubContext = await serviceManager.CreateHubContextAsync("hubName");
+
 try
 {
-    var hubContext = await serviceManager.CreateHubContextAsync("hubName");
 
     // Broadcast
-    hubContext.Clients.All.SendAsync(callbackName, obj1, obj2, ...);
+    hubContext.Clients.All.SendAsync("callbackName", obj1, obj2, ...);
 
     // Send to user
-    hubContext.Clients.User(userId).SendAsync(callbackName, obj1, obj2, ...);
+    hubContext.Clients.User(userId).SendAsync("callbackName", obj1, obj2, ...);
 
     // Send to group
-    hubContext.Clients.Group(groupId).SendAsync(callbackName, obj1, obj2, ...);
+    hubContext.Clients.Group(groupId).SendAsync("callbackName", obj1, obj2, ...);
 
     // add user to group
-    await hubContext.UserGroups.AddToGroupAsync(userId, groupName);
+    await hubContext.UserGroups.AddToGroupAsync("userId", "groupName");
 
     // remove user from group
-    await hubContext.UserGroups.RemoveFromGroupAsync(userId, groupName);
+    await hubContext.UserGroups.RemoveFromGroupAsync("userId", "groupName");
 }
 finally
 {
